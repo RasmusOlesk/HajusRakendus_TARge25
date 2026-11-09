@@ -44,5 +44,9 @@ app.post('/vidinad/:id', (req, res) => {
         name: req.body.name
     }
     vidinad.push(newVidin)
-    return res.status(201).location('localhost:8080/vidinad/'+{vidinad.length - 1}).send(newVidin)   
+    return res.status(201).location('localhost:8080/vidinad/'+(vidinad.length - 1)).send(newVidin)   
+})
+
+app.listen(8080, () => {
+    console.log(`Api töötab aadressil: http//localhost:8080`)
 })
