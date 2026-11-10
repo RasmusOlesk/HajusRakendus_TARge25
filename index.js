@@ -47,6 +47,31 @@ app.post('/vidinad/:id', (req, res) => {
     return res.status(201).location('localhost:8080/vidinad/'+(vidinad.length - 1)).send(newVidin)   
 })
 
+app.put('/vidinad/:id', (req, res) => {
+    if (typeof vidinad[req.params.id-1] === 'undefined') {
+        return res.status(404).send({error:`vidinat idga ${req.params.id} ei ole`})
+    }
+    if (!req.body.name || !req.body.price) {
+        return res.status(400).send({error:"Andmed on sisestamata, palun kontrolli andmete õigsust."})
+    }
+    let muudetudVidin = {
+        id: req.params.id-1,
+        name: req.body.name,
+        price: req.body.price
+    }
+    vidinad[req.params.id-1].name = muudetudVidin.name
+    vidinad[req.params.id-1].price = muudetudVidin.price
+    return res.status(201).location('localhost:8080/vidinad/'+(muudetudVidin.id)).send(muudetudVidin)
+})
+
+app.delete('/vidinad/:id',(req, res) =>{
+    if (typeof vidinad[req.params.id-1] === 'undefined') {
+        return res.status(404).send({error:"vidinat pole"})
+    }
+    vidinad.splice((req.params.id-1,1))
+    res.status(204).send({error:"No Content"})
+})
+
 app.listen(8080, () => {
     console.log(`Api töötab aadressil: http//localhost:8080`)
 })
