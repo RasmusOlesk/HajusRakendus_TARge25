@@ -35,3 +35,12 @@ document.getElementById("app").innerHTML = `
 <p>Car Number: ${minuJson[0].Car["Car Number"]}</p>
 </div>
 `
+
+function loadDoc() {
+    const http = new XMLHttpRequest();
+    XMLHttpRequest.onload = function () {
+        DocumentFragment,getElementbyId("bacon").innerHTML = this.responseText;
+    }
+    xhttp.open("GET","https://baconipsum.com/api/?type=all-meat")
+    xhttp.send()
+}
