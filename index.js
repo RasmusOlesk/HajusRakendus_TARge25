@@ -2,7 +2,7 @@ const express = require('express');
 const cors = require('cors');
 const app = express();
 
-app.use(cors());
+app.use(cors()); 
 app.use(express.json()) //!exp5 error, body not defined by default
 
 const vidinad = [
@@ -23,6 +23,9 @@ const vidinad = [
     },
 ]
 
+
+
+
 app.get('/vidinad', (req, res) => {
     res.send(vidinad)
 })
@@ -34,25 +37,25 @@ app.get('/vidinad/:id', (req, res) => {
     res.send(vidinad[req.params.id-1])
 })
 
-app.post('/vidinad/:id', (req, res) => {
+app.post('/vidinad', (req, res) => {
     if (!req.body.name || !req.body.price) {
-        return res.status(400).send({error: "midagi puudub sul kontrolli andmeid"})
+        return res.status(400).send({error: "midagi puudub sul, kontrolli andmeid"})        
     }
     let newVidin = {
         id: vidinad.length +1,
-        price: req.body.price,
-        name: req.body.name
+        name: req.body.name,
+        price: req.body.price
     }
     vidinad.push(newVidin)
-    return res.status(201).location('localhost:8080/vidinad/'+(vidinad.length - 1)).send(newVidin)   
+    return res.status(201).location('localhost:8080/vidinad/'+(vidinad.length - 1)).send(newVidin)
 })
 
 app.put('/vidinad/:id', (req, res) => {
     if (typeof vidinad[req.params.id-1] === 'undefined') {
-        return res.status(404).send({error:`vidinat idga ${req.params.id} ei ole`})
+        return res.status(404).send({error:`vidinat idga ${req.params.id} ei ole`}) 
     }
     if (!req.body.name || !req.body.price) {
-        return res.status(400).send({error:"Andmed on sisestamata, palun kontrolli andmete õigsust."})
+        return res.status(400).send({error:"Andmed on sisestamamta, palun kontrolli andmete õigsust."})
     }
     let muudetudVidin = {
         id: req.params.id-1,
@@ -68,10 +71,10 @@ app.delete('/vidinad/:id',(req, res) =>{
     if (typeof vidinad[req.params.id-1] === 'undefined') {
         return res.status(404).send({error:"vidinat pole"})
     }
-    vidinad.splice((req.params.id-1,1))
+    vidinad.splice((req.params.id-1),1)
     res.status(204).send({error:"No Content"})
 })
 
 app.listen(8080, () => {
-    console.log(`Api töötab aadressil: http//localhost:8080`)
+    console.log(`API töötab aadressil: http://localhost:8080`)
 })
