@@ -11,13 +11,13 @@
             <td><div id="app"></div></td>
             <td>
                 <div>
-                    <button type="button" onclick="loadDoc()">ANNA MULLE LIHA</button>
+                    <button type="button" onclick="loadDoc()">ANAMULEPEEKON</button>
                     <p id="bacon"></p>
                     <script>
                         function loadDoc() {
-                            const http = new XMLHttpRequest();
-                            XMLHttpRequest.onload = function () {
-                                DocumentFragment,getElementbyId("bacon").innerHTML = this.responseText;
+                            const xhttp = new XMLHttpRequest();
+                            xhttp.onload = function () {
+                                document.getElementById("bacon").innerHTML = this.responseText;
                             }
                             xhttp.open("GET","https://baconipsum.com/api/?type=all-meat")
                             xhttp.send()
@@ -26,8 +26,13 @@
                 </div>
             </td>
         </tr>
+        <tr>
+            <div id="gitdata"></div>
+        </tr>
     </table>
-    <div id="app"></div>
+    
     <script src="./carjson.js" type="module"></script>
+    <script src="./github.js" type="module"></script>
 </body>
 </html>
+
